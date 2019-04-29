@@ -1,0 +1,41 @@
+{
+  "name": "git-commit-vscode",
+  "displayName": "Git commit message helper",
+  "description": "Provides some useful helpers for writing a git commit message",
+  "version": "1.0.0",
+  "publisher": "trentrand",
+  "homepage": "https://github.com/trentrand/vscode-git-commit/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trentrand/vscode-git-commit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trentrand/vscode-git-commit/issues"
+  },
+  "engines": {
+    "vscode": "^1.27.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:git-commit"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "commands": [],
+    "keybindings": []
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21",
+    "eslint": "^4.11.0",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {}
+}

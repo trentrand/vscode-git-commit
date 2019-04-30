@@ -24,7 +24,33 @@
   "main": "./extension",
   "contributes": {
     "commands": [],
-    "keybindings": []
+    "keybindings": [],
+    "configuration": {
+      "type": "object",
+      "title": "Git Commit Message Helper",
+      "properties": {
+        "git-commit.subjectFormat.enableFormatter": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Lint and format the commit subject using information from the branch name"
+        },
+        "git-commit.subjectFormat.template": {
+          "type": "string",
+          "default": "[$0] $1",
+          "markdownDescription": "Template with indexed placeholders (e.g. `$0`..`$N`)\n\nMust be valid against the subject format linter rule"
+        },
+        "git-commit.subjectFormat.linterRegex": {
+          "type": "string",
+          "default": "^\\[((?:[A-Z]+-\\d+)(?:, [A-Z]+-\\d+)*)?\\] (.*)",
+          "markdownDescription": "Regular expression to lint the commit subject"
+        },
+        "git-commit.subjectFormat.branchRegex": {
+          "type": "string",
+          "default": "^\\w+\\/(CMS-\\d+)(?:-.*)",
+          "markdownDescription": "Regular expression to capture data groups from the current branch name, used to fill the data points of the placeholder"
+        }
+      }
+    }
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
@@ -37,5 +63,7 @@
     "@types/node": "^8.10.25",
     "@types/mocha": "^2.2.42"
   },
-  "dependencies": {}
+  "dependencies": {
+    "simple-git": "^1.110.0"
+  }
 }

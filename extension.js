@@ -11,6 +11,11 @@ exports.activate = async function activate(extensionContext) {
   if (getConfiguration('subjectFormat.enableFormatter')) {
     await formatCommitSubject();
   }
+
+  // Set the cursor selection to the end of the commit subject
+  if (getConfiguration('autoselectEndOfSubject')) {
+    setSelectionToEol(0);
+  }
 }
 
 /**
@@ -45,6 +50,14 @@ function validateSubjectFormat(subjectText) {
 /**
  * Commands
  */
+
+// Sets the selection (caret position) to the end of the specified line
+function setSelectionToEol(lineNum) {
+  const textEditor = vscode.window.activeTextEditor;
+  const line = textEditor.document.lineAt(new vscode.Position(lineNum, 0));
+  const positionEol = new vscode.Position(lineNum, line.range.end.character);
+  textEditor.selection = new vscode.Selection(positionEol, positionEol);
+}
 
 // Lint and format the commit subject
 async function formatCommitSubject() {

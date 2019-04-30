@@ -29,6 +29,11 @@
       "type": "object",
       "title": "Git Commit Message Helper",
       "properties": {
+        "git-commit.autoselectEndOfSubject": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Whether or not to auto-select the end of the commit subject"
+        },
         "git-commit.subjectFormat.enableFormatter": {
           "type": "boolean",
           "default": true,

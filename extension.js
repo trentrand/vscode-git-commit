@@ -16,6 +16,17 @@ exports.activate = async function activate(extensionContext) {
   if (getConfiguration('autoselectEndOfSubject')) {
     setSelectionToEol(0);
   }
+
+  // On each document change, if applicable, update the "characters remaining" count
+  vscode.workspace.onDidChangeTextDocument(event => {
+    const textEditor = vscode.window.activeTextEditor;
+    if (textEditor && event.document === textEditor.document) {
+      if (getConfiguration('subjectFormat.displayCharactersRemaining')) {
+        updateMaxLengthDecoration();
+      }
+    }
+  }, null, extensionContext.subscriptions);
+
 }
 
 /**
@@ -45,6 +56,18 @@ async function getBranchName(cwd) {
 
 function validateSubjectFormat(subjectText) {
   return new RegExp(getConfiguration('subjectFormat.linterRegex')).test(subjectText);
+}
+
+// Create the max length decorator type, indicating the characters remaining
+// before the commit subject's max length is met
+function generateMaxLengthDecorationType(maxLength, lineLength) {
+  return vscode.window.createTextEditorDecorationType({
+    after: {
+      contentText: ` ${maxLength - lineLength} characters remaining`,
+      color: getConfiguration('subjectFormat.charactersRemainingTextColor'),
+      margin: '0 0 0 2em',
+    }
+  });
 }
 
 /**
@@ -87,6 +110,34 @@ async function formatCommitSubject() {
 
     const edit = new vscode.WorkspaceEdit();
     edit.insert(document.uri, subjectLine.range.start, subjectText);
-    vscode.workspace.applyEdit(edit)
+    await vscode.workspace.applyEdit(edit)
+
+    if (getConfiguration('subjectFormat.displayCharactersRemaining')) {
+      updateMaxLengthDecoration();
+    }
+  }
+}
+
+// Present and update a decoration that indicates the amount of characters
+// remaining before the git subject's max length is met
+function updateMaxLengthDecoration() {
+  const textEditor = vscode.window.activeTextEditor;
+  if (!textEditor) {
+    return;
+  }
+  const document = textEditor.document;
+  const subjectMaxLength = getConfiguration('subjectFormat.maxLength');
+  const subjectLine = document.lineAt(new vscode.Position(0, 0));
+  const decorations = [{
+    range: new vscode.Range(subjectLine.range.start, subjectLine.range.end)
+  }];
+  // Dispose previous max length decoration type, if it exists
+  if (this.maxLengthDecorationType) {
+    this.maxLengthDecorationType.dispose();
+  }
+  if (subjectLine.text.length !== 0) {
+    // Generate and globally store reference to new max length decoration type
+    this.maxLengthDecorationType = generateMaxLengthDecorationType(subjectMaxLength, subjectLine.text.length);
+    textEditor.setDecorations(this.maxLengthDecorationType, decorations);
   }
 }

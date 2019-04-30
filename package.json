@@ -53,6 +53,21 @@
           "type": "string",
           "default": "^\\w+\\/(CMS-\\d+)(?:-.*)",
           "markdownDescription": "Regular expression to capture data groups from the current branch name, used to fill the data points of the placeholder"
+        },
+        "git-commit.subjectFormat.displayCharactersRemaining" : {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Display the characters remaining before the subject's max length is met"
+        },
+        "git-commit.subjectFormat.charactersRemainingTextColor" : {
+          "type": "string",
+          "default": "rgba(153, 153, 153, 0.35)",
+          "markdownDescription": "The text color of the characters remaining indicator"
+        },
+        "git-commit.subjectFormat.maxLength" : {
+          "type": "number",
+          "default": 72,
+          "markdownDescription": "The maximum length of the git commit subject text"
         }
       }
     }

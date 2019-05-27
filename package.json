@@ -21,7 +21,7 @@
   "activationEvents": [
     "onLanguage:git-commit"
   ],
-  "main": "./extension",
+  "main": "./extension/index.js",
   "contributes": {
     "commands": [],
     "keybindings": [],

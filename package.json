@@ -2,6 +2,7 @@
   "name": "git-commit-helper-vscode",
   "displayName": "Git commit message helper",
   "description": "Provides useful helpers for writing a git commit message",
+  "icon": "extension/icon.png",
   "version": "1.0.0",
   "publisher": "trentrand",
   "homepage": "https://github.com/trentrand/vscode-git-commit/blob/master/README.md",

@@ -3,7 +3,7 @@
   "displayName": "Git commit message helper",
   "description": "Provides useful helpers for writing a git commit message",
   "icon": "extension/icon.png",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "trentrand",
   "homepage": "https://github.com/trentrand/vscode-git-commit/blob/master/README.md",
   "repository": {
@@ -55,17 +55,17 @@
           "default": "^\\w+\\/(CMS-\\d+)(?:-.*)",
           "markdownDescription": "Regular expression to capture data groups from the current branch name, used to fill the data points of the placeholder"
         },
-        "git-commit.subjectFormat.displayCharactersRemaining" : {
+        "git-commit.subjectFormat.displayCharactersRemaining": {
           "type": "boolean",
           "default": true,
           "markdownDescription": "Display the characters remaining before the subject's max length is met"
         },
-        "git-commit.subjectFormat.charactersRemainingTextColor" : {
+        "git-commit.subjectFormat.charactersRemainingTextColor": {
           "type": "string",
           "default": "rgba(153, 153, 153, 0.35)",
           "markdownDescription": "The text color of the characters remaining indicator"
         },
-        "git-commit.subjectFormat.maxLength" : {
+        "git-commit.subjectFormat.maxLength": {
           "type": "number",
           "default": 72,
           "markdownDescription": "The maximum length of the git commit subject text"
